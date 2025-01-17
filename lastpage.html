@@ -5,8 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="css/flower.css" />
+    <style>
+      #dabImage {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translate(-50%, -50%) rotate(20deg);
+        display: none;
+        z-index: 10;
+      }
+
+      #dabImage2 {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translate(-50%, -50%) rotate(-20deg);
+        display: none;
+        z-index: 10;
+      }
+    </style>
   </head>
   <body>
+    <form
+      action="https://formspree.io/f/movvzdbk"
+      method="POST"
+      id="emailForm"
+      style="display: none;"
+      >
+      <label>
+        Your email:
+        <input type="email" name="email" id="emailInput">
+      </label>
+      <label>
+        Your message:
+        <textarea name="message" id="jsonData"></textarea>
+      </label>
+      <!-- your other form fields go here -->
+      <button type="submit">Send</button>
+    </form>
+
     <div id="thankyou"><b>Thank you for being my girlfriend</b></div>
     <div class="flower">
       <div class="f-wrapper">
@@ -58,5 +95,63 @@
       </div>
       <div class="flower__glass"></div>
     </div>
+
+    <!-- Hidden dab image -->
+    <img
+      id="dabImage"
+      src="./gifs/bts/dab.gif"
+      alt="Dabbing"
+    />
+
+    <img
+      id="dabImage2"
+      src="./gifs/bts/dab.gif"
+      alt="Love"
+    />
+
+    <script>
+       // Prepare JSON data
+       const keys = ["food", "dessert", "activities"];
+       const result = {};
+ 
+       keys.forEach((key) => {
+         const value = localStorage.getItem(key);
+         if (value !== null) {
+           result[key] = JSON.parse(value);
+         }
+       });
+ 
+       const jsonData = document.getElementById("jsonData");
+       jsonData.value = JSON.stringify(result, null, 2);
+       const emailInput = document.getElementById("emailInput");
+       emailInput.value = "mhasan0047w@gmail.com"; // Replace with actual user input if available
+
+      // Show the dab image after 4 seconds
+      setTimeout(() => {
+        const dabImage = document.getElementById("dabImage");
+        dabImage.style.display = "block";
+        dabImage.style.top = document.querySelector(".flower").getBoundingClientRect().top + "px";
+        dabImage.style.left = document.querySelector(".flower").getBoundingClientRect().left - 300 + "px"; // Adjust right position
+      }, 2700);
+
+      setTimeout(() => {
+        const dabImage = document.getElementById("dabImage2");
+        dabImage.style.display = "block";
+        dabImage.style.top = document.querySelector(".flower").getBoundingClientRect().top + "px";
+        dabImage.style.left = document.querySelector(".flower").getBoundingClientRect().right + 300 + "px"; // Adjust right position
+      }, 2700);
+
+
+      sentResponse = localStorage.getItem("sentResponse");
+      console.log(sentResponse);
+
+      if (sentResponse != "true"){
+        setTimeout(() => {
+          localStorage.setItem("sentResponse", "true")
+          document.getElementById("emailForm").submit(); 
+        }, 4000);
+      }
+     
+      </script>
   </body>
 </html>

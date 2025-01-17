@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/activities.css" />
   </head>
   <body>
-    <div id="activityquestion"><b>What are we doing after?</b></div>
+    <div id="activityquestion"><b>What we doing the day after? (Pick multiple)</b></div>
     <div class="activities-selection">
       <div class="activity-item">
         <img src="activities/aquarium.jpeg" alt="aquarium" />
@@ -16,7 +16,7 @@
             type="checkbox"
             name="activities"
             value="aquarium"
-          />aquarium</label
+          />Aquarium</label
         >
       </div>
       <div class="activity-item">
@@ -26,7 +26,7 @@
             type="checkbox"
             name="activities"
             value="arcade"
-          />arcade</label
+          />Arcade</label
         >
       </div>
       <div class="activity-item">
@@ -35,11 +35,11 @@
           ><input
             type="checkbox"
             name="activities"
-            value="cinema"
-          />cinema</label
+            value="theater"
+          />Theater</label
         >
       </div>
-      <div class="activity-item">
+      <!-- <div class="activity-item">
         <img src="activities/keramika.jpeg" alt="ceramics" />
         <label
           ><input
@@ -48,30 +48,63 @@
             value="ceramics"
           />ceramics</label
         >
-      </div>
+      </div> -->
       <div class="activity-item">
         <img src="activities/kunsthalle.jpeg" alt="kunsthalle" />
         <label
           ><input
             type="checkbox"
             name="activities"
-            value="kunsthalle"
-          />exhibition</label
+            value="Museum of sex"
+          />Museum of 👀</label
         >
       </div>
-      <div class="activity-item">
+      <!-- <div class="activity-item">
         <img src="activities/park.jpeg" alt="park.jpeg" />
         <label
           ><input
             type="checkbox"
             name="activities"
             value="park.jpeg"
-          />park</label
+          />Picnic</label
         >
-      </div>
+      </div> -->
     </div>
-    <button class="button" onclick="location.href='lastpage.html'">
-      Last page
-    </button>
-  </body>
+    <button class="button" onclick="handleResponses()">Send responses to papi</button>
+
+<div class="gif-container">
+  <img src="./gifs/bts/fan.gif" alt="Fan"/>
+</div>
+
+<!-- <form id="emailForm" action="https://formspree.io/f/movvzdbk" method="POST" style="display: none;">
+  <label>
+    Your email:
+    <input type="email" name="email" id="emailInput" value="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message" id="jsonData"></textarea>
+  </label>
+</form> -->
+
+<footer>
+  <script>
+    function handleResponses() {
+      // Collect responses and store in localStorage
+      storeActivitiesSelection();
+
+      // Redirect or further actions
+      // <!-- alert("Collected responses sent: " + JSON.stringify(result, null, 2)); -->
+    window.location.href = "lastpage.html";
+    }
+
+    function storeActivitiesSelection() {
+      const selectedFoods = Array.from(
+        document.querySelectorAll('input[name="activities"]:checked')
+      ).map((checkbox) => checkbox.value);
+      localStorage.setItem("activities", JSON.stringify(selectedFoods));
+    }
+  </script>
+</footer>
+
 </html>

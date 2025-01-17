@@ -5,28 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Be My Valentine</title>
     <link rel="stylesheet" href="css/valentine.css" />
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+
+      .answerButton {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #noButton {
+        position: absolute;
+      }
+
+      .responsive {
+        max-width: 100%;
+        height: auto;
+        transition: transform 0.5s ease;
+      }
+
+      .large {
+        transform: scale(1.5); 
+      }
+    </style>
   </head>
   <body>
-    <div id="valentineQuestion"><b>Will you be my valentine?</b></div>
-    <button class="answerButton" onclick="location.href='thankyou.html'">
+    <div id="valentineQuestion"><b>Zeinab will you be my Valentine?</b></div>
+    <button class="answerButton" id="yesButton">
       Yes
     </button>
-    <button class="answerButton" id="noButton">I no no wanna o(╥﹏╥)o</button>
+    <button class="answerButton" id="noButton">No</button>
     <br />
-    <img src="cat.gif" alt="cat asking question" class="responsive" />
+    <img id="reactionImage" src="gifs/bts/cry.gif" alt="cat crying" class="responsive" />
 
     <script>
-      document
-        .getElementById("noButton")
-        .addEventListener("click", function () {
-          var yesButton = document.querySelector(
-            'button[onclick*="thankyou.html"]'
-          );
-          var currentFontSize = parseInt(
-            window.getComputedStyle(yesButton).fontSize
-          );
-          yesButton.style.fontSize = currentFontSize + 10 + "px"; // Increase font size by 5px
-        });
+      window.onload = function () {
+        localStorage.removeItem("food");
+        localStorage.removeItem("dessert");
+        localStorage.removeItem("activities");
+        localStorage.removeItem("sentResponse");
+      };
+
+      const noButton = document.getElementById("noButton");
+      const yesButton = document.getElementById("yesButton");
+      const reactionImage = document.getElementById("reactionImage");
+
+      // Function to move the button to a random position
+      function moveButtonRandomly(event) {
+        const buttonRect = noButton.getBoundingClientRect();
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        // Calculate the distance from the mouse to the button
+        const distanceX = Math.abs(mouseX - (buttonRect.left + buttonRect.width / 2));
+        const distanceY = Math.abs(mouseY - (buttonRect.top + buttonRect.height / 2));
+
+        // Move the button if the mouse is too close
+        if (distanceX < 100 && distanceY < 50) {
+          const randomX = Math.random() * (window.innerWidth - buttonRect.width);
+          const randomY = Math.random() * (window.innerHeight - buttonRect.height);
+
+          noButton.style.left = `${randomX}px`;
+          noButton.style.top = `${randomY}px`;
+        }
+      }
+
+      document.body.addEventListener("mousemove", moveButtonRandomly);
+
+      yesButton.addEventListener("click", () => {
+        const noButton = document.getElementById("noButton");
+        const yesButtonElement = document.getElementById("yesButton");
+
+        if (noButton) {
+          noButton.remove();
+        }
+
+        if (yesButtonElement) {
+          yesButtonElement.remove();
+        }
+        
+        reactionImage.src = "gifs/bts/love.gif";
+        reactionImage.alt = "cat love";
+        reactionImage.classList.add("medium");
+
+        setTimeout(() => {
+          window.location.href = "thankyou.html";
+        }, 1500);
+      });
     </script>
   </body>
 </html>
